@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cargo Space Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="panel">
+      <h1>Cargo Space Visualizer</h1>
+
+      <section>
+        <h2>Container</h2>
+        <div class="field-row">
+          <label>Length <input type="number" id="container-length" value="20" min="1" step="0.5" /></label>
+          <label>Width <input type="number" id="container-width" value="8" min="1" step="0.5" /></label>
+          <label>Height <input type="number" id="container-height" value="8" min="1" step="0.5" /></label>
+        </div>
+        <p class="hint">Units are arbitrary (e.g. feet). All dimensions use the same unit.</p>
+        <button type="button" id="apply-container">Update container</button>
+      </section>
+
+      <section>
+        <h2>Create item</h2>
+        <label>Name <input type="text" id="item-name" placeholder="Sofa" /></label>
+        <div class="field-row">
+          <label>Length <input type="number" id="item-length" value="7" min="0.1" step="0.1" /></label>
+          <label>Width <input type="number" id="item-width" value="3" min="0.1" step="0.1" /></label>
+          <label>Height <input type="number" id="item-height" value="3" min="0.1" step="0.1" /></label>
+        </div>
+        <div class="rotate-row">
+          <span>Rotate side:</span>
+          <button type="button" id="rotate-x" title="Tilt forward/back (90°)">↻ X</button>
+          <button type="button" id="rotate-y" title="Spin on floor (90°)">↻ Y</button>
+          <button type="button" id="rotate-z" title="Roll onto another side (90°)">↻ Z</button>
+        </div>
+        <p id="preview-orientation" class="hint"></p>
+        <button type="button" id="add-item">Add to library</button>
+      </section>
+
+      <section>
+        <h2>Item library</h2>
+        <p class="hint">Click to select, rotate if needed, then drag into the container. A badge shows how many of each item are placed.</p>
+        <ul id="item-library" class="item-library"></ul>
+      </section>
+
+      <section id="library-selected-section" class="hidden">
+        <h2>Ready to place</h2>
+        <p id="library-selected-name" class="selected-name"></p>
+        <div class="rotate-row">
+          <button type="button" id="rotate-library-x" title="Tilt forward/back (90°)">↻ X</button>
+          <button type="button" id="rotate-library-y" title="Spin on floor (90°)">↻ Y</button>
+          <button type="button" id="rotate-library-z" title="Roll onto another side (90°)">↻ Z</button>
+        </div>
+        <p class="hint">While dragging, press X, Y, or Z to rotate before releasing.</p>
+      </section>
+
+      <section id="selected-section" class="hidden">
+        <h2>Selected item</h2>
+        <p id="selected-name" class="selected-name"></p>
+        <div class="rotate-row">
+          <button type="button" id="rotate-placed-x" title="Tilt forward/back (90°)">↻ X</button>
+          <button type="button" id="rotate-placed-y" title="Spin on floor (90°)">↻ Y</button>
+          <button type="button" id="rotate-placed-z" title="Roll onto another side (90°)">↻ Z</button>
+          <button type="button" id="remove-placed" class="secondary">Remove</button>
+        </div>
+        <p class="hint">Drop onto the canvas, then use arrow keys to slide the item into place. Invalid spots glow orange.</p>
+      </section>
+
+      <section class="actions">
+        <button type="button" id="export-plan">Export loading plan</button>
+        <button type="button" id="export-layout">Export layout</button>
+        <button type="button" id="import-layout" class="secondary">Import layout</button>
+        <input type="file" id="import-layout-file" accept=".json,application/json" hidden />
+        <button type="button" id="clear-placed" class="secondary">Clear placed items</button>
+        <button type="button" id="reset-all" class="secondary">Reset everything</button>
+        <p class="hint">Layout saves automatically. Export/import to back up or move between devices.</p>
+      </section>
+    </aside>
+
+    <main class="viewport">
+      <canvas id="canvas"></canvas>
+      <div id="drop-hint" class="drop-hint hidden">Release to place item</div>
+    </main>
+  </div>
+
+  <div id="loading-plan-modal" class="modal hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Loading plan</h2>
+        <button type="button" id="close-plan-modal" class="secondary">Close</button>
+      </div>
+      <textarea id="loading-plan-text" readonly></textarea>
+      <div class="modal-actions">
+        <button type="button" id="copy-plan">Copy</button>
+        <button type="button" id="download-plan">Download .txt</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+      }
+    }
+  </script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
