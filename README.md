@@ -4,7 +4,9 @@ A simple 3D web app for planning how to load a moving container. Define your con
 
 No build step — plain HTML, CSS, and JavaScript with [Three.js](https://threejs.org/) loaded from a CDN.
 
-## Running the project
+**Live app:** [https://tejendra.github.io/cargo-space-visualizer/](https://tejendra.github.io/cargo-space-visualizer/)
+
+## Running locally
 
 ES modules require a local web server (opening `index.html` directly in the browser will not work).
 
