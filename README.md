@@ -6,6 +6,8 @@ No build step — plain HTML, CSS, and JavaScript with [Three.js](https://threej
 
 **Live app:** [https://tejendra.github.io/cargo-space-visualizer/](https://tejendra.github.io/cargo-space-visualizer/)
 
+![Item library and container layout](demo.png)
+
 ## Running locally
 
 ES modules require a local web server (opening `index.html` directly in the browser will not work).
